@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*
+			 
+			 简单类型的叫赋值，
+			 复合类型的叫赋址（[]{}）
+			 
+			例如：
+				简单类型：
+						a=2						
+						b=a
+						b=3
+				这种情况下a还是等于2，b等于3
+				
+				复合类型：
+						a = [1,2,3];
+						b = a;
+						b.push(4)
+				这种情况下b = [1,2,3,4]; a = [1,2,3,4]
+				
+				因为复合类型的 = 是赋址就是把a的地址给啦b，  这样b和a在一个地址里面，b改变啦，同样也会改变 a
+			
+			
+			解决复合类型的赋址：
+							let  arr = [1,2,3]  
+						    let  arr2=[]
+						    
+						       for(let i=0;i<3;i++){
+						           arr2[i] = arr[i]; //这样for循环一下，把arr里面的数据单独拿出来给arr2	；					           
+						       }					//arr里面的每一个数据都是简单类型，所以是赋值；
+						       						//所以改变啦arr2,也不会影响arr；
+						    arr2.push(4);						
+						    console.log(arr);
+			
+			但是如果复合类型套复合类型例如：			
+			 let arr = [1,2,3,4,[5,6,[[{name:'hh',arr:[7,8]},[[[1,2,[7,8]]]]]]]];
+			 
+			 上面的那种方法就不可以啦，就需要用到下面这种办法啦
+ 
+		    function deepClone(data){
+	let o = data.push?[]:{};//这句代码的意思是，是数组吗，是就push一个数组，如果不是就push一个对象，是为了防止数组里面有对象才写的
+		        for(let attr in data){
+		            //说明是复合类型
+		            if(typeof data[attr] === 'object'){
+		                o[attr] = deepClone(data[attr]);
+		            }else{
+		                //简单类型
+		                o[attr] = data[attr];
+		            }
+		        }
+		        return o;
+		    }
+		
+		    let arr2 = deepClone(arr);
+		
+		    arr2[4][2][0][1].push(10);
+		    console.log(arr);
+			 
+			 
+			 
+			 */
+			
+			
+		</script>
+	</body>
+</html>
